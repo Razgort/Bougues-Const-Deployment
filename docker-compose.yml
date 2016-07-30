@@ -53,7 +53,7 @@ services:
   apiserver:
     restart: always
     hostname: apiserver
-    build: ../Bouygues-Const/
+    build: ./Bouygues-Const/
     ports:
       - "8080:3000"
     depends_on:
