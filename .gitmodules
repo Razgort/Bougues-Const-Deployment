@@ -3,4 +3,4 @@
 	url = ../Bouygues-Const-WebApp.git
 [submodule "Bouygues-Const"]
 	path = Bouygues-Const
-	url = ../Bouygues-Const-WebApp.git
+	url = ../Bouygues-Const.git
