@@ -40,18 +40,22 @@ services:
       - WEBROOT_PATH=/tmp/letsencrypt
       - EXP_LIMIT=30
       - CHECK_FREQ=30
-      
+
   webapp:
     restart: always
     hostname: webapp
-    build: ./webapp/
+    build: ./Bouygues-Const-WebApp/
+    ports:
+      - "80"
     volumes:
       - ./client/dist:/usr/local/apache2/htdocs/
 
   apiserver:
     restart: always
     hostname: apiserver
-    build: ./server/
+    build: ../Bouygues-Const/
+    ports:
+      - "8080:3000"
     depends_on:
       - mongodb
     links:
