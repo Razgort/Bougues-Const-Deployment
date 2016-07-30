@@ -1,0 +1,6 @@
+[submodule "Bouygues-Const-WebApp"]
+	path = Bouygues-Const-WebApp
+	url = ../Bouygues-Const-WebApp.git
+[submodule "Bouygues-Const"]
+	path = Bouygues-Const
+	url = ../Bouygues-Const-WebApp.git
