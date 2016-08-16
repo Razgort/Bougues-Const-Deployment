@@ -48,7 +48,7 @@ services:
     ports:
       - "80"
     volumes:
-      - ./client/dist:/usr/local/apache2/htdocs/
+      - ./Bouygues-Const-WebApp/dist:/usr/local/apache2/htdocs/
 
   apiserver:
     restart: always
@@ -61,7 +61,7 @@ services:
     links:
       - mongodb
     volumes:
-      - ./server/:/app
+      - ./Bouygues-Const/:/app
 
   mongodb:
     image: mongo:latest
