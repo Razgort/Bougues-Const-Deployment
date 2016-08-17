@@ -1,6 +1,8 @@
 version: '2'
 services:
   nginx:
+    networks:
+      - custom-driver
     restart: always
     hostname: nginx
     build: ./nginx/
@@ -23,6 +25,8 @@ services:
       - LE_RENEW_HOOK=docker kill -s HUP @CONTAINER_NAME@
 
   letsencrypt:
+    networks:
+      - custom-driver
     restart: always
     image: kvaps/letsencrypt-webroot
     volumes:
@@ -42,6 +46,8 @@ services:
       - CHECK_FREQ=30
 
   webapp:
+    networks:
+      - custom-driver
     restart: always
     hostname: webapp
     build: ./Bouygues-Const-WebApp/
@@ -51,6 +57,9 @@ services:
       - ./Bouygues-Const-WebApp/dist:/usr/local/apache2/htdocs/
 
   apiserver:
+    container_name: apiserver
+    networks:
+      - custom-driver
     restart: always
     hostname: apiserver
     build: ./Bouygues-Const/
@@ -60,11 +69,12 @@ services:
       - mongodb
     links:
       - mongodb
-      - openocr
     volumes:
       - ./Bouygues-Const/:/app
 
   mongodb:
+    networks:
+      - custom-driver
     image: mongo:latest
     container_name: mongodb
     volumes:
@@ -77,6 +87,8 @@ services:
     restart: always
 
   adminmongo:
+    networks:
+      - custom-driver
     build: ./mongodb/gui/
     container_name: adminmongo
     links:
@@ -87,6 +99,8 @@ services:
 
   # Start messaging broker
   rabbitmq:
+    networks:
+      - custom-driver
     image: tutum/rabbitmq
     dns: ["8.8.8.8"]
     environment:
@@ -94,6 +108,8 @@ services:
 
   # Start transformation worker
   strokewidthtransform:
+    networks:
+      - custom-driver
     image: tleyden5iwx/open-ocr-preprocessor
     volumes:
       - ./scripts/:/opt/open-ocr/
@@ -105,6 +121,8 @@ services:
   # Start OCR worker
   openocrworker:
     image: tleyden5iwx/open-ocr
+    networks:
+      - custom-driver
     volumes:
       - ./scripts/:/opt/open-ocr/
     dns: ["8.8.8.8"]
@@ -114,8 +132,11 @@ services:
 
   # Start http server
   openocr:
+    container_name: openocr
     image: tleyden5iwx/open-ocr
     dns: ["8.8.8.8"]
+    networks:
+      - custom-driver
     volumes:
       - ./scripts/:/opt/open-ocr/
     links:
@@ -123,3 +144,6 @@ services:
     ports:
       - "9292:9292"
     command: "/opt/open-ocr/open-ocr-httpd -amqp_uri amqp://admin:Phaish9ohbaidei6oole@rabbitmq/ -http_port 9292"
+networks:
+  custom-driver:
+    driver: bridge
