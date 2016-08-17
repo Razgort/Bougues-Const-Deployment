@@ -121,5 +121,5 @@ services:
     links:
       - rabbitmq
     ports:
-      - "9292"
+      - "9292:9292"
     command: "/opt/open-ocr/open-ocr-httpd -amqp_uri amqp://admin:Phaish9ohbaidei6oole@rabbitmq/ -http_port 9292"
