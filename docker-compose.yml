@@ -51,13 +51,13 @@ services:
     restart: always
     hostname: webapp
     image: metal3d/ng
-    command: serve
+    command: serve --prod
     ports:
     - 4200:4200
     - 49152:49152
     user: 1000:1000
     volumes:
-    - ./Bouygues-Const-WebApp/dist:/project
+    - ./Bouygues-Const-WebApp/:/project
 
   apiserver:
     container_name: apiserver
