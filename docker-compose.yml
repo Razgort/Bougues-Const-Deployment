@@ -19,8 +19,8 @@ services:
       - ./nginx/config/sites-enabled:/etc/nginx/sites-enabled
       - ./nginx/config/ssl:/etc/nginx/ssl
       - /etc/localtime:/etc/localtime:ro
-      - ./letsencrypt/conf:/etc/letsencrypt
-      - ./letsencrypt/html:/tmp/letsencrypt
+      - ./letsencrypt/conf:/etc/letsencrypt:rw
+      - ./letsencrypt/html:/tmp/letsencrypt:rw
     environment:
       - LE_RENEW_HOOK=docker kill -s HUP @CONTAINER_NAME@
 
@@ -39,7 +39,7 @@ services:
     links:
       - nginx
     environment:
-      - DOMAINS=ocrbybat.lespot-bouygues.com
+      - DOMAINS=ocrbybat.lespot-bouygues.com api.ocrbybat.lespot-bouygues.com
       - EMAIL=bonjour@bouygues.com
       - WEBROOT_PATH=/tmp/letsencrypt
       - EXP_LIMIT=30
