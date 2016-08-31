@@ -86,17 +86,6 @@ services:
       - "27017:27017"
     restart: always
 
-  adminmongo:
-    networks:
-      - custom-driver
-    build: ./mongodb/gui/
-    container_name: adminmongo
-    links:
-      - mongodb
-    ports:
-      - "3000"
-    restart: always
-
   # Start messaging broker
   rabbitmq:
     networks:
