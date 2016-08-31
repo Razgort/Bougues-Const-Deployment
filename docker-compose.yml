@@ -52,7 +52,7 @@ services:
     hostname: webapp
     build: ./Bouygues-Const-WebApp/
     ports:
-      - "80"
+      - "4200:80"
     volumes:
       - ./Bouygues-Const-WebApp/dist:/usr/local/apache2/htdocs/
 
